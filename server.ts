@@ -2,7 +2,7 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import dotenv from "dotenv";
-import { scrapeMetadata } from "./src/server/scrape";
+import { scrapeMetadata } from "./api/_lib/scrape.ts";
 
 dotenv.config({ path: ".env.local", quiet: true });
 dotenv.config({ quiet: true });

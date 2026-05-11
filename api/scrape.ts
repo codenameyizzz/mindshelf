@@ -1,4 +1,4 @@
-import { scrapeMetadata } from "../src/server/scrape";
+import { scrapeMetadata } from "./_lib/scrape.ts";
 
 export default {
   async fetch(request: Request) {

@@ -374,7 +374,7 @@ export default function App() {
                 </div>
                 {desktopSidebarExpanded && (
                   <div>
-                    <h1 className="font-serif text-[2rem] leading-none tracking-tight">MindShelf</h1>
+                    <h1 className="google-display text-[2rem] leading-none tracking-tight">MindShelf</h1>
                     <p className="mt-1 font-mono text-[10px] uppercase text-library-muted">Reference library</p>
                   </div>
                 )}
@@ -420,7 +420,7 @@ export default function App() {
 
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Curated reference shelf</p>
-                  <h2 className="font-serif text-[1.9rem] leading-none tracking-tight">Collect what keeps moving you.</h2>
+                  <h2 className="google-display text-[1.9rem] leading-none tracking-tight">Collect what keeps moving you.</h2>
                 </div>
               </div>
 
@@ -438,12 +438,12 @@ export default function App() {
           </header>
 
           <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8">
-            <section className="grid gap-5 xl:grid-cols-[minmax(0,1.3fr)_380px]">
+            <section>
               <div className="rounded-[22px] border border-white/70 bg-white/64 p-5 shadow-[0_22px_70px_rgba(15,43,84,0.08)] backdrop-blur-2xl sm:p-6">
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                   <div className="max-w-2xl">
                     <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Capture</p>
-                    <h3 className="mt-2 font-serif text-[2.25rem] leading-[0.95] tracking-tight sm:text-[2.8rem]">
+                    <h3 className="google-display mt-2 text-[2.25rem] leading-[0.95] tracking-tight sm:text-[2.8rem]">
                       Save a YouTube, Instagram, or website link into one quiet grid.
                     </h3>
                     <p className="mt-3 max-w-xl text-sm leading-6 text-library-muted">
@@ -491,13 +491,11 @@ export default function App() {
                     {error || notice}
                   </div>
                 )}
-              </div>
 
-              <section className="rounded-[22px] border border-white/70 bg-white/62 p-4 shadow-[0_22px_70px_rgba(15,43,84,0.08)] backdrop-blur-2xl sm:p-5">
                 {previewMetadata ? (
-                  <div className="flex h-full flex-col gap-4">
+                  <div className="mt-5 grid gap-4 rounded-[22px] border border-white/75 bg-white/62 p-4 shadow-[0_18px_50px_rgba(15,43,84,0.06)] backdrop-blur-2xl lg:grid-cols-[220px_minmax(0,1fr)] lg:p-5">
                     <div className="relative overflow-hidden rounded-[18px] border border-white/80 bg-library-soft">
-                      <div className="aspect-[4/5]">
+                      <div className="aspect-[1/1]">
                         <PreviewImage metadata={previewMetadata} />
                       </div>
                       <div className="absolute left-4 top-4">
@@ -512,84 +510,61 @@ export default function App() {
                       </button>
                     </div>
 
-                    <div className="space-y-3 px-1">
-                      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Preview</p>
-                      <h3 className="line-clamp-2 font-serif text-[1.8rem] leading-[1.02] tracking-tight">
-                        {previewMetadata.title}
-                      </h3>
-                      <p className="line-clamp-3 text-sm leading-6 text-library-muted">{previewMetadata.description}</p>
-                    </div>
+                    <div className="flex flex-col gap-4">
+                      <div className="space-y-3">
+                        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Preview</p>
+                        <h3 className="line-clamp-2 text-[1.5rem] font-semibold leading-[1.02] tracking-tight text-library-ink sm:text-[1.8rem]">
+                          {previewMetadata.title}
+                        </h3>
+                        <p className="line-clamp-3 text-sm leading-6 text-library-muted">{previewMetadata.description}</p>
+                      </div>
 
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <label className="space-y-2">
-                        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-library-muted">Category</span>
-                        <select
-                          value={selectedCategory}
-                          onChange={(event) => setSelectedCategory(event.target.value as ContentCategory)}
-                          className="h-12 w-full rounded-2xl border border-white/80 bg-white/76 px-4 text-sm outline-none backdrop-blur-xl focus:border-library-accent focus:ring-4 focus:ring-library-accent/10"
-                        >
-                          {CATEGORIES.map((category) => (
-                            <option key={category} value={category}>
-                              {category}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <label className="space-y-2">
+                          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-library-muted">Category</span>
+                          <select
+                            value={selectedCategory}
+                            onChange={(event) => setSelectedCategory(event.target.value as ContentCategory)}
+                            className="h-12 w-full rounded-2xl border border-white/80 bg-white/76 px-4 text-sm outline-none backdrop-blur-xl focus:border-library-accent focus:ring-4 focus:ring-library-accent/10"
+                          >
+                            {CATEGORIES.map((category) => (
+                              <option key={category} value={category}>
+                                {category}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
 
-                      <label className="space-y-2">
-                        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-library-muted">Intent</span>
-                        <input
-                          type="text"
-                          value={reason}
-                          onChange={(event) => setReason(event.target.value)}
-                          placeholder="Why keep this around?"
-                          className="h-12 w-full rounded-2xl border border-white/80 bg-white/76 px-4 text-sm outline-none backdrop-blur-xl focus:border-library-accent focus:ring-4 focus:ring-library-accent/10"
-                        />
-                      </label>
-                    </div>
+                        <label className="space-y-2">
+                          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-library-muted">Intent</span>
+                          <input
+                            type="text"
+                            value={reason}
+                            onChange={(event) => setReason(event.target.value)}
+                            placeholder="Why keep this around?"
+                            className="h-12 w-full rounded-2xl border border-white/80 bg-white/76 px-4 text-sm outline-none backdrop-blur-xl focus:border-library-accent focus:ring-4 focus:ring-library-accent/10"
+                          />
+                        </label>
+                      </div>
 
-                    <button
-                      className="mt-auto inline-flex h-12 items-center justify-center gap-2 rounded-full bg-library-accent px-5 text-sm font-semibold text-white shadow-[0_18px_34px_rgba(37,99,235,0.24)] transition hover:bg-library-accent-strong"
-                      onClick={handleSave}
-                    >
-                      <Bookmark size={16} />
-                      Save to This Browser
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex h-full flex-col justify-between gap-6 rounded-[18px] border border-dashed border-library-line/85 bg-library-soft/55 p-5">
-                    <div>
-                      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Storage</p>
-                      <h3 className="mt-2 font-serif text-[1.9rem] leading-tight tracking-tight">
-                        A local board that behaves more like a saved collection than a temporary list.
-                      </h3>
-                      <p className="mt-3 text-sm leading-6 text-library-muted">
-                        New entries are written into {STORAGE_LABELS[storageMode]}. The app keeps the link, metadata, and thumbnail together when available.
-                      </p>
-                    </div>
-
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <InfoTile
-                        icon={HardDrive}
-                        title="Primary storage"
-                        value={STORAGE_LABELS[storageMode]}
-                      />
-                      <InfoTile
-                        icon={Archive}
-                        title="Card ratio"
-                        value="Uniform 4:5 media frames"
-                      />
+                      <button
+                        className="inline-flex h-12 items-center justify-center gap-2 self-start rounded-full bg-library-accent px-5 text-sm font-semibold text-white shadow-[0_18px_34px_rgba(37,99,235,0.24)] transition hover:bg-library-accent-strong"
+                        onClick={handleSave}
+                      >
+                        <Bookmark size={16} />
+                        Save to This Browser
+                      </button>
                     </div>
                   </div>
-                )}
-              </section>
+                ) : null}
+              </div>
             </section>
 
             <section className="rounded-[22px] border border-white/70 bg-white/60 p-4 shadow-[0_22px_70px_rgba(15,43,84,0.08)] backdrop-blur-2xl sm:p-5">
               <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Library</p>
-                  <h3 className="mt-2 font-serif text-[2rem] leading-none tracking-tight">Saved references</h3>
+                  <h3 className="google-display mt-2 text-[2rem] leading-none tracking-tight">Saved references</h3>
                 </div>
 
                 <div className="flex w-full flex-col gap-3 xl:w-auto xl:flex-row">
