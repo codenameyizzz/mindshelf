@@ -651,7 +651,7 @@ export default function App() {
                 {hydrating ? (
                   <CardSkeletonGrid />
                 ) : filteredItems.length > 0 ? (
-                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3">
                     <AnimatePresence mode="popLayout">
                       {filteredItems.map((item) => (
                         <motion.div key={item.id} layout>
@@ -1044,55 +1044,55 @@ function ContentCard({
       exit={{ opacity: 0, y: 14, scale: 0.98 }}
       className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-white/75 bg-white/68 shadow-[0_14px_36px_rgba(15,43,84,0.07)] backdrop-blur-2xl transition hover:-translate-y-0.5 hover:shadow-[0_20px_45px_rgba(15,43,84,0.11)]"
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-library-soft">
+      <div className="relative aspect-[1/1] overflow-hidden bg-library-soft">
         {item.image ? (
           <img src={item.image} alt="" className="h-full w-full object-cover" referrerPolicy="no-referrer" />
         ) : (
           <div className="grid h-full place-items-center font-serif text-xl text-library-muted">No preview</div>
         )}
 
-        <div className="absolute left-4 top-4">
+        <div className="absolute left-2 top-2">
           <PlatformBadge platform={item.platform} />
         </div>
 
-        <div className="absolute right-4 top-4 flex gap-2 opacity-100 transition sm:opacity-0 sm:hover:opacity-100 sm:group-hover:opacity-100">
+        <div className="absolute right-2 top-2 flex gap-1.5 opacity-100 transition sm:opacity-0 sm:hover:opacity-100 sm:group-hover:opacity-100">
           <button
-            className="grid h-9 w-9 place-items-center rounded-full border border-white/75 bg-white/78 text-library-ink backdrop-blur-xl"
+            className="grid h-7 w-7 place-items-center rounded-full border border-white/75 bg-white/78 text-library-ink backdrop-blur-xl"
             onClick={() => onToggleRead(item.id)}
             title={item.isRead ? "Move back to inbox" : "Mark as completed"}
           >
-            <CheckCircle2 size={16} />
+            <CheckCircle2 size={14} />
           </button>
           <button
-            className="grid h-9 w-9 place-items-center rounded-full border border-white/75 bg-white/78 text-blue-700 backdrop-blur-xl"
+            className="grid h-7 w-7 place-items-center rounded-full border border-white/75 bg-white/78 text-blue-700 backdrop-blur-xl"
             onClick={() => onDelete(item.id)}
             title="Delete"
           >
-            <Trash2 size={16} />
+            <Trash2 size={14} />
           </button>
         </div>
       </div>
 
-      <div className="flex min-h-[138px] flex-1 flex-col p-3">
+      <div className="flex min-h-[124px] flex-1 flex-col p-3">
         <div className="mb-2 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-library-muted">
           <CategoryIcon size={12} />
           <span>{item.category}</span>
           <span>{item.source}</span>
         </div>
 
-        <h4 className="line-clamp-2 font-serif text-[1.12rem] leading-[1.05] tracking-tight text-library-ink">
+        <h4 className="line-clamp-2 font-serif text-[1.02rem] leading-[1.05] tracking-tight text-library-ink">
           <a href={item.url} target="_blank" rel="noreferrer" className="hover:underline">
             {item.title}
           </a>
         </h4>
 
-        <p className="mt-2 line-clamp-2 text-xs leading-5 text-library-muted">{item.description}</p>
+        <p className="mt-1.5 line-clamp-2 text-[11px] leading-4 text-library-muted">{item.description}</p>
 
-        <div className="mt-auto pt-4">
+        <div className="mt-auto pt-3">
           <p className="truncate text-xs italic text-library-muted">
             {item.reason || "No note added for this reference."}
           </p>
-          <div className="mt-3 flex items-center justify-between gap-3">
+          <div className="mt-2 flex items-center justify-between gap-3">
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-library-muted">
               {DATE_FORMATTER.format(item.savedAt)}
             </span>
@@ -1114,17 +1114,17 @@ function ContentCard({
 
 function CardSkeletonGrid() {
   return (
-    <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3">
       {Array.from({ length: 8 }).map((_, index) => (
         <div
           key={index}
           className="overflow-hidden rounded-[18px] border border-white/70 bg-white/60 shadow-[0_14px_36px_rgba(15,43,84,0.05)]"
         >
-          <div className="aspect-[4/5] animate-pulse bg-library-soft/80" />
-          <div className="space-y-3 p-4">
+          <div className="aspect-[1/1] animate-pulse bg-library-soft/80" />
+          <div className="space-y-2.5 p-3">
             <div className="h-3 w-24 rounded-full bg-library-soft/80" />
-            <div className="h-5 w-full rounded-full bg-library-soft/70" />
-            <div className="h-5 w-4/5 rounded-full bg-library-soft/70" />
+            <div className="h-4 w-full rounded-full bg-library-soft/70" />
+            <div className="h-4 w-4/5 rounded-full bg-library-soft/70" />
             <div className="h-4 w-2/3 rounded-full bg-library-soft/60" />
           </div>
         </div>
