@@ -6,25 +6,27 @@
   --font-serif: "Cormorant Garamond", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --color-library-base: #f5faf5;
-  --color-library-soft: #e5f4e8;
-  --color-library-line: #d4e5d9;
-  --color-library-ink: #173127;
-  --color-library-muted: #667d70;
-  --color-library-accent: #2b8a55;
-  --color-library-accent-strong: #246f46;
+  --color-library-base: #f7fbff;
+  --color-library-soft: #eaf4ff;
+  --color-library-line: #d5e7f8;
+  --color-library-ink: #10243f;
+  --color-library-muted: #61748d;
+  --color-library-accent: #2563eb;
+  --color-library-accent-strong: #1d4ed8;
 }
 
 html {
-  background: #f5faf5;
+  background: #f7fbff;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  background: #f5faf5;
-  color: #173127;
+  background: #f7fbff;
+  color: #10243f;
   font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  overscroll-behavior-y: contain;
 }
 
 * {
@@ -40,4 +42,36 @@ button,
 input,
 select {
   font: inherit;
+}
+
+* {
+  scrollbar-color: rgba(37, 99, 235, 0.35) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.28);
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.44);
+  background-clip: content-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .smooth-scroll-area {
+    scroll-behavior: smooth;
+  }
 }

@@ -52,9 +52,9 @@ const PLATFORM_ICONS: Record<ContentPlatform, typeof Globe2> = {
 };
 
 const PLATFORM_BADGE_STYLES: Record<ContentPlatform, string> = {
-  YouTube: "border-red-100 bg-red-50/85 text-red-700",
-  Instagram: "border-pink-100 bg-pink-50/85 text-pink-700",
-  Web: "border-emerald-100 bg-emerald-50/85 text-emerald-800",
+  YouTube: "border-blue-100 bg-blue-50/90 text-blue-700",
+  Instagram: "border-blue-100 bg-blue-50/90 text-blue-700",
+  Web: "border-blue-100 bg-blue-50/90 text-blue-700",
 };
 
 const STORAGE_LABELS: Record<StorageMode, string> = {
@@ -323,7 +323,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-library-base text-library-ink">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(64,170,116,0.28),_transparent_26rem),radial-gradient(circle_at_85%_10%,_rgba(203,244,221,0.72),_transparent_28rem),linear-gradient(180deg,_#eef7f0_0%,_#f6fbf7_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,_#f7fbff_0%,_#eef6ff_45%,_#ffffff_100%)]" />
 
       <div className="relative min-h-screen lg:flex">
         <AnimatePresence>
@@ -341,7 +341,7 @@ export default function App() {
                 initial={{ x: -32, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: -32, opacity: 0 }}
-                className="fixed inset-y-3 left-3 z-40 w-[290px] overflow-hidden rounded-[28px] border border-white/65 bg-white/72 shadow-[0_28px_80px_rgba(14,50,33,0.18)] backdrop-blur-2xl lg:hidden"
+                className="fixed inset-y-3 left-3 z-40 w-[290px] overflow-hidden rounded-[22px] border border-white/65 bg-white/72 shadow-[0_28px_80px_rgba(15,43,84,0.16)] backdrop-blur-2xl lg:hidden"
               >
                 <SidebarContent
                   expanded
@@ -364,12 +364,12 @@ export default function App() {
         </AnimatePresence>
 
         <aside
-          className={`hidden border-r border-white/60 bg-white/58 shadow-[0_18px_60px_rgba(14,50,33,0.08)] backdrop-blur-2xl transition-[width] duration-300 lg:flex lg:flex-col ${sidebarWidthClass}`}
+          className={`hidden border-r border-white/60 bg-white/58 shadow-[0_18px_60px_rgba(15,43,84,0.08)] backdrop-blur-2xl transition-[width] duration-300 lg:flex lg:flex-col ${sidebarWidthClass}`}
         >
           <div className={`flex h-full flex-col py-5 transition-all ${brandPanelClass}`}>
             <div className="mb-6 flex items-center justify-between gap-3">
               <div className={`flex items-center gap-3 ${desktopSidebarExpanded ? "" : "w-full justify-center"}`}>
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-library-accent text-white shadow-[0_18px_40px_rgba(39,135,85,0.28)]">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-library-accent text-white shadow-[0_18px_40px_rgba(37,99,235,0.25)]">
                   <LibraryBig size={22} />
                 </div>
                 {desktopSidebarExpanded && (
@@ -412,7 +412,7 @@ export default function App() {
               <div className="flex items-center gap-3">
                 <button
                   aria-label="Open navigation"
-                  className="grid h-11 w-11 place-items-center rounded-full border border-white/70 bg-white/72 shadow-[0_14px_32px_rgba(14,50,33,0.08)] backdrop-blur-xl lg:hidden"
+                  className="grid h-11 w-11 place-items-center rounded-full border border-white/70 bg-white/72 shadow-[0_14px_32px_rgba(15,43,84,0.08)] backdrop-blur-xl lg:hidden"
                   onClick={() => setMobileSidebarOpen(true)}
                 >
                   <Menu size={18} />
@@ -428,7 +428,7 @@ export default function App() {
                 <StoragePill mode={storageMode} />
                 <button
                   onClick={pickRandom}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/70 bg-white/72 px-4 text-sm font-semibold text-library-ink shadow-[0_14px_32px_rgba(14,50,33,0.08)] backdrop-blur-xl"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/70 bg-white/72 px-4 text-sm font-semibold text-library-ink shadow-[0_14px_32px_rgba(15,43,84,0.08)] backdrop-blur-xl"
                 >
                   <Dices size={16} />
                   Pick One
@@ -439,7 +439,7 @@ export default function App() {
 
           <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8">
             <section className="grid gap-5 xl:grid-cols-[minmax(0,1.3fr)_380px]">
-              <div className="rounded-[30px] border border-white/70 bg-white/64 p-5 shadow-[0_22px_70px_rgba(14,50,33,0.08)] backdrop-blur-2xl sm:p-6">
+              <div className="rounded-[22px] border border-white/70 bg-white/64 p-5 shadow-[0_22px_70px_rgba(15,43,84,0.08)] backdrop-blur-2xl sm:p-6">
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                   <div className="max-w-2xl">
                     <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Capture</p>
@@ -466,14 +466,14 @@ export default function App() {
                       value={url}
                       onChange={(event) => setUrl(event.target.value)}
                       placeholder="Paste a link to save"
-                      className="h-14 w-full rounded-full border border-white/80 bg-white/76 pl-12 pr-4 text-sm text-library-ink shadow-[0_14px_32px_rgba(14,50,33,0.05)] outline-none backdrop-blur-xl transition focus:border-library-accent focus:ring-4 focus:ring-library-accent/10"
+                      className="h-14 w-full rounded-full border border-white/80 bg-white/76 pl-12 pr-4 text-sm text-library-ink shadow-[0_14px_32px_rgba(15,43,84,0.05)] outline-none backdrop-blur-xl transition focus:border-library-accent focus:ring-4 focus:ring-library-accent/10"
                       required
                     />
                   </label>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-library-accent px-6 text-sm font-semibold text-white shadow-[0_18px_34px_rgba(39,135,85,0.26)] transition hover:bg-library-accent-strong disabled:opacity-60"
+                    className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-library-accent px-6 text-sm font-semibold text-white shadow-[0_18px_34px_rgba(37,99,235,0.24)] transition hover:bg-library-accent-strong disabled:opacity-60"
                   >
                     <Plus size={18} />
                     {loading ? "Fetching" : "Preview Link"}
@@ -484,8 +484,8 @@ export default function App() {
                   <div
                     className={`mt-4 rounded-[22px] border px-4 py-3 text-sm backdrop-blur-xl ${
                       error
-                        ? "border-rose-200 bg-rose-50/80 text-rose-800"
-                        : "border-emerald-200 bg-emerald-50/80 text-emerald-900"
+                        ? "border-blue-200 bg-white/90 text-blue-900"
+                        : "border-blue-200 bg-blue-50/80 text-blue-900"
                     }`}
                   >
                     {error || notice}
@@ -493,10 +493,10 @@ export default function App() {
                 )}
               </div>
 
-              <section className="rounded-[30px] border border-white/70 bg-white/62 p-4 shadow-[0_22px_70px_rgba(14,50,33,0.08)] backdrop-blur-2xl sm:p-5">
+              <section className="rounded-[22px] border border-white/70 bg-white/62 p-4 shadow-[0_22px_70px_rgba(15,43,84,0.08)] backdrop-blur-2xl sm:p-5">
                 {previewMetadata ? (
                   <div className="flex h-full flex-col gap-4">
-                    <div className="relative overflow-hidden rounded-[24px] border border-white/80 bg-library-soft">
+                    <div className="relative overflow-hidden rounded-[18px] border border-white/80 bg-library-soft">
                       <div className="aspect-[4/5]">
                         <PreviewImage metadata={previewMetadata} />
                       </div>
@@ -549,7 +549,7 @@ export default function App() {
                     </div>
 
                     <button
-                      className="mt-auto inline-flex h-12 items-center justify-center gap-2 rounded-full bg-library-accent px-5 text-sm font-semibold text-white shadow-[0_18px_34px_rgba(39,135,85,0.26)] transition hover:bg-library-accent-strong"
+                      className="mt-auto inline-flex h-12 items-center justify-center gap-2 rounded-full bg-library-accent px-5 text-sm font-semibold text-white shadow-[0_18px_34px_rgba(37,99,235,0.24)] transition hover:bg-library-accent-strong"
                       onClick={handleSave}
                     >
                       <Bookmark size={16} />
@@ -557,7 +557,7 @@ export default function App() {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex h-full flex-col justify-between gap-6 rounded-[26px] border border-dashed border-library-line/85 bg-library-soft/55 p-5">
+                  <div className="flex h-full flex-col justify-between gap-6 rounded-[18px] border border-dashed border-library-line/85 bg-library-soft/55 p-5">
                     <div>
                       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Storage</p>
                       <h3 className="mt-2 font-serif text-[1.9rem] leading-tight tracking-tight">
@@ -585,7 +585,7 @@ export default function App() {
               </section>
             </section>
 
-            <section className="rounded-[30px] border border-white/70 bg-white/60 p-4 shadow-[0_22px_70px_rgba(14,50,33,0.08)] backdrop-blur-2xl sm:p-5">
+            <section className="rounded-[22px] border border-white/70 bg-white/60 p-4 shadow-[0_22px_70px_rgba(15,43,84,0.08)] backdrop-blur-2xl sm:p-5">
               <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-library-muted">Library</p>
@@ -604,13 +604,13 @@ export default function App() {
                     />
                   </label>
 
-                  <div className="flex gap-2 overflow-x-auto pb-1">
+                  <div className="smooth-scroll-area flex gap-2 overflow-x-auto pb-1">
                     {STATUS_FILTERS.map((filter) => (
                       <button
                         key={filter}
                         className={`inline-flex h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-sm font-medium transition ${
                           statusFilter === filter
-                            ? "border-library-accent bg-library-accent text-white shadow-[0_12px_26px_rgba(39,135,85,0.24)]"
+                            ? "border-library-accent bg-library-accent text-white shadow-[0_12px_26px_rgba(37,99,235,0.22)]"
                             : "border-white/80 bg-white/72 text-library-ink backdrop-blur-xl"
                         }`}
                         onClick={() => setStatusFilter(filter)}
@@ -623,7 +623,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+              <div className="smooth-scroll-area mt-4 flex gap-2 overflow-x-auto pb-1">
                 {PLATFORM_FILTERS.map((platform) => {
                   const isAll = platform === "All";
                   const Icon = isAll ? Layers : PLATFORM_ICONS[platform];
@@ -634,7 +634,7 @@ export default function App() {
                       key={platform}
                       className={`inline-flex h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-sm transition ${
                         platformFilter === platform
-                          ? "border-library-accent bg-library-accent text-white shadow-[0_12px_26px_rgba(39,135,85,0.24)]"
+                          ? "border-library-accent bg-library-accent text-white shadow-[0_12px_26px_rgba(37,99,235,0.22)]"
                           : "border-white/80 bg-white/70 text-library-ink backdrop-blur-xl"
                       }`}
                       onClick={() => setPlatformFilter(platform)}
@@ -651,7 +651,7 @@ export default function App() {
                 {hydrating ? (
                   <CardSkeletonGrid />
                 ) : filteredItems.length > 0 ? (
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
                     <AnimatePresence mode="popLayout">
                       {filteredItems.map((item) => (
                         <motion.div key={item.id} layout>
@@ -661,9 +661,9 @@ export default function App() {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <div className="grid min-h-[280px] place-items-center rounded-[26px] border border-dashed border-library-line/80 bg-library-soft/52 p-8 text-center">
+                  <div className="grid min-h-[280px] place-items-center rounded-[18px] border border-dashed border-library-line/80 bg-library-soft/52 p-8 text-center">
                     <div className="max-w-sm">
-                      <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-white/78 shadow-[0_12px_30px_rgba(14,50,33,0.06)]">
+                      <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-white/78 shadow-[0_12px_30px_rgba(15,43,84,0.06)]">
                         <Inbox size={26} className="text-library-muted" />
                       </div>
                       <h3 className="font-serif text-[1.9rem] leading-none tracking-tight">Nothing matches this view.</h3>
@@ -686,7 +686,7 @@ export default function App() {
               initial={{ opacity: 0, y: 18, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 18, scale: 0.98 }}
-              className="grid w-full max-w-4xl overflow-hidden rounded-[30px] border border-white/75 bg-white/74 shadow-[0_30px_90px_rgba(14,50,33,0.2)] backdrop-blur-2xl lg:grid-cols-[0.95fr_1fr]"
+              className="grid w-full max-w-4xl overflow-hidden rounded-[22px] border border-white/75 bg-white/74 shadow-[0_30px_90px_rgba(15,43,84,0.18)] backdrop-blur-2xl lg:grid-cols-[0.95fr_1fr]"
             >
               <div className="border-b border-white/70 bg-library-soft lg:border-b-0 lg:border-r">
                 <div className="aspect-[4/5]">
@@ -732,7 +732,7 @@ export default function App() {
                     href={randomItem.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-library-accent px-5 text-sm font-semibold text-white shadow-[0_18px_34px_rgba(39,135,85,0.26)]"
+                    className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-library-accent px-5 text-sm font-semibold text-white shadow-[0_18px_34px_rgba(37,99,235,0.24)]"
                     onClick={() => {
                       setShowRandomModal(false);
                       toggleRead(randomItem.id);
@@ -801,7 +801,7 @@ function SidebarContent({
         </div>
       )}
 
-      <div className={`flex-1 overflow-y-auto ${expanded ? "px-5" : "px-2"}`}>
+      <div className={`smooth-scroll-area flex-1 overflow-y-auto ${expanded ? "px-5" : "px-2"}`}>
         <section className="mb-6 rounded-[24px] border border-white/70 bg-library-soft/68 p-4">
           {expanded ? (
             <>
@@ -945,7 +945,7 @@ function SidebarButton({
     <button
       className={`flex w-full items-center rounded-full border px-3 py-2 text-sm transition ${
         active
-          ? "border-library-accent bg-library-accent text-white shadow-[0_12px_26px_rgba(39,135,85,0.24)]"
+          ? "border-library-accent bg-library-accent text-white shadow-[0_12px_26px_rgba(37,99,235,0.22)]"
           : "border-white/60 bg-white/55 text-library-ink backdrop-blur-xl"
       } ${expanded ? "justify-between" : "justify-center"}`}
       onClick={onClick}
@@ -971,7 +971,7 @@ function StoragePill({ mode }: { mode: StorageMode }) {
 
 function MetricCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-[22px] border border-white/70 bg-white/74 p-4 shadow-[0_12px_30px_rgba(14,50,33,0.04)] backdrop-blur-xl">
+    <div className="rounded-[18px] border border-white/70 bg-white/74 p-4 shadow-[0_12px_30px_rgba(15,43,84,0.04)] backdrop-blur-xl">
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-library-muted">{label}</p>
       <p className="mt-2 font-serif text-[2rem] leading-none tracking-tight text-library-ink">{value}</p>
     </div>
@@ -1042,13 +1042,13 @@ function ContentCard({
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 14, scale: 0.98 }}
-      className="group flex h-full flex-col overflow-hidden rounded-[26px] border border-white/75 bg-white/68 shadow-[0_18px_50px_rgba(14,50,33,0.08)] backdrop-blur-2xl transition hover:-translate-y-0.5 hover:shadow-[0_24px_60px_rgba(14,50,33,0.12)]"
+      className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-white/75 bg-white/68 shadow-[0_14px_36px_rgba(15,43,84,0.07)] backdrop-blur-2xl transition hover:-translate-y-0.5 hover:shadow-[0_20px_45px_rgba(15,43,84,0.11)]"
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-library-soft">
         {item.image ? (
           <img src={item.image} alt="" className="h-full w-full object-cover" referrerPolicy="no-referrer" />
         ) : (
-          <div className="grid h-full place-items-center font-serif text-2xl text-library-muted">No preview</div>
+          <div className="grid h-full place-items-center font-serif text-xl text-library-muted">No preview</div>
         )}
 
         <div className="absolute left-4 top-4">
@@ -1064,7 +1064,7 @@ function ContentCard({
             <CheckCircle2 size={16} />
           </button>
           <button
-            className="grid h-9 w-9 place-items-center rounded-full border border-white/75 bg-white/78 text-rose-600 backdrop-blur-xl"
+            className="grid h-9 w-9 place-items-center rounded-full border border-white/75 bg-white/78 text-blue-700 backdrop-blur-xl"
             onClick={() => onDelete(item.id)}
             title="Delete"
           >
@@ -1073,23 +1073,23 @@ function ContentCard({
         </div>
       </div>
 
-      <div className="flex min-h-[164px] flex-1 flex-col p-4">
-        <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-library-muted">
+      <div className="flex min-h-[138px] flex-1 flex-col p-3">
+        <div className="mb-2 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-library-muted">
           <CategoryIcon size={12} />
           <span>{item.category}</span>
           <span>{item.source}</span>
         </div>
 
-        <h4 className="line-clamp-2 font-serif text-[1.35rem] leading-[1.05] tracking-tight text-library-ink">
+        <h4 className="line-clamp-2 font-serif text-[1.12rem] leading-[1.05] tracking-tight text-library-ink">
           <a href={item.url} target="_blank" rel="noreferrer" className="hover:underline">
             {item.title}
           </a>
         </h4>
 
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-library-muted">{item.description}</p>
+        <p className="mt-2 line-clamp-2 text-xs leading-5 text-library-muted">{item.description}</p>
 
         <div className="mt-auto pt-4">
-          <p className="truncate text-sm italic text-library-muted">
+          <p className="truncate text-xs italic text-library-muted">
             {item.reason || "No note added for this reference."}
           </p>
           <div className="mt-3 flex items-center justify-between gap-3">
@@ -1100,7 +1100,7 @@ function ContentCard({
               href={item.url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-library-accent"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-library-accent"
             >
               Open
               <ExternalLink size={14} />
@@ -1114,11 +1114,11 @@ function ContentCard({
 
 function CardSkeletonGrid() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
       {Array.from({ length: 8 }).map((_, index) => (
         <div
           key={index}
-          className="overflow-hidden rounded-[26px] border border-white/70 bg-white/60 shadow-[0_18px_50px_rgba(14,50,33,0.05)]"
+          className="overflow-hidden rounded-[18px] border border-white/70 bg-white/60 shadow-[0_14px_36px_rgba(15,43,84,0.05)]"
         >
           <div className="aspect-[4/5] animate-pulse bg-library-soft/80" />
           <div className="space-y-3 p-4">
