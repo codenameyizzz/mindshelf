@@ -1,0 +1,6 @@
+{
+  "name": "MindShelf",
+  "description": "Sebuah aplikasi untuk mengkurasi informasi dari media sosial (YouTube/IG) dengan metadata scraping, tombol acak untuk konsumsi konten, dan pelacakan progres gamified.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
