@@ -43,7 +43,14 @@ function normalizeCategory(category: string): ContentCategory {
     Other: "Other",
   };
 
-  return categoryMap[category] || "Other";
+  const normalized = categoryMap[category];
+
+  if (normalized) {
+    return normalized;
+  }
+
+  const trimmed = category.trim();
+  return trimmed || "Other";
 }
 
 export function normalizeSavedItem(item: SavedContent): SavedContent {

@@ -34,16 +34,20 @@ import { detectPlatform, fetchMetadata, normalizeSavedItem } from "./services/ap
 import { loadSavedItems, saveSavedItems, type StorageMode } from "./services/storage";
 import { ContentCategory, ContentMetadata, ContentPlatform, SavedContent, UserStats } from "./types";
 
-const CATEGORIES: ContentCategory[] = ["Learning", "Entertainment", "Work Reference", "Other"];
+const DEFAULT_CATEGORIES: ContentCategory[] = ["Learning", "Entertainment", "Work Reference", "Other"];
 const PLATFORM_FILTERS: Array<"All" | ContentPlatform> = ["All", "YouTube", "Instagram", "Web"];
 const STATUS_FILTERS: Array<"inbox" | "archive"> = ["inbox", "archive"];
 
-const CATEGORY_ICONS: Record<ContentCategory, typeof BookOpen> = {
+const CATEGORY_ICONS: Record<string, typeof BookOpen> = {
   Learning: BookOpen,
   Entertainment: Clapperboard,
   "Work Reference": Briefcase,
   Other: Layers,
 };
+
+function getCategoryIcon(category: string) {
+  return CATEGORY_ICONS[category] || Layers;
+}
 
 const PLATFORM_ICONS: Record<ContentPlatform, typeof Globe2> = {
   YouTube: Youtube,
@@ -89,6 +93,20 @@ export default function App() {
   const [showRandomModal, setShowRandomModal] = useState(false);
   const [desktopSidebarExpanded, setDesktopSidebarExpanded] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
+  const availableCategories = useMemo(() => {
+    const customCategories = new Set<string>();
+
+    savedItems.forEach((item) => {
+      const category = item.category.trim();
+
+      if (category && !DEFAULT_CATEGORIES.includes(category)) {
+        customCategories.add(category);
+      }
+    });
+
+    return [...DEFAULT_CATEGORIES, ...Array.from(customCategories).sort((left, right) => left.localeCompare(right))];
+  }, [savedItems]);
 
   useEffect(() => {
     let cancelled = false;
@@ -152,15 +170,11 @@ export default function App() {
   }, [savedItems, hydrating]);
 
   const stats = useMemo((): UserStats => {
-    const categoryBreakdown: Record<ContentCategory, number> = {
-      Learning: 0,
-      Entertainment: 0,
-      "Work Reference": 0,
-      Other: 0,
-    };
+    const categoryBreakdown: Record<string, number> = {};
 
     savedItems.forEach((item) => {
-      categoryBreakdown[item.category]++;
+      const category = item.category.trim() || "Other";
+      categoryBreakdown[category] = (categoryBreakdown[category] || 0) + 1;
     });
 
     return {
@@ -230,7 +244,7 @@ export default function App() {
         ...data,
         platform: data.platform || detectPlatform(data.url, data.source),
       });
-      setSelectedCategory("Learning");
+      setSelectedCategory(availableCategories[0] || "Learning");
       setReason("");
     } catch (fetchError) {
       setError(fetchError instanceof Error ? fetchError.message : "The link metadata could not be loaded.");
@@ -244,6 +258,8 @@ export default function App() {
       return;
     }
 
+    const normalizedCategory = selectedCategory.trim() || "Other";
+
     const newItem: SavedContent = normalizeSavedItem({
       id: crypto.randomUUID(),
       url: previewMetadata.url,
@@ -253,7 +269,7 @@ export default function App() {
       originalImage: previewMetadata.image || previewMetadata.thumbnail,
       source: previewMetadata.source,
       platform: previewMetadata.platform || detectPlatform(previewMetadata.url, previewMetadata.source),
-      category: selectedCategory,
+      category: normalizedCategory,
       reason,
       savedAt: Date.now(),
       isRead: false,
@@ -282,6 +298,7 @@ export default function App() {
     setPreviewMetadata(null);
     setUrl("");
     setReason("");
+    setSelectedCategory(availableCategories[0] || "Learning");
     setStatusFilter("inbox");
     setPlatformFilter("All");
     setCategoryFilter("All");
@@ -353,6 +370,7 @@ export default function App() {
                   setStatusFilter={setStatusFilter}
                   platformFilter={platformFilter}
                   setPlatformFilter={setPlatformFilter}
+                  availableCategories={availableCategories}
                   categoryFilter={categoryFilter}
                   setCategoryFilter={setCategoryFilter}
                   storageMode={storageMode}
@@ -399,6 +417,7 @@ export default function App() {
               setStatusFilter={setStatusFilter}
               platformFilter={platformFilter}
               setPlatformFilter={setPlatformFilter}
+              availableCategories={availableCategories}
               categoryFilter={categoryFilter}
               setCategoryFilter={setCategoryFilter}
               storageMode={storageMode}
@@ -522,17 +541,18 @@ export default function App() {
                       <div className="grid gap-3 sm:grid-cols-2">
                         <label className="space-y-2">
                           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-library-muted">Category</span>
-                          <select
+                          <input
+                            list="category-options"
                             value={selectedCategory}
-                            onChange={(event) => setSelectedCategory(event.target.value as ContentCategory)}
+                            onChange={(event) => setSelectedCategory(event.target.value)}
+                            placeholder="Choose or create a category"
                             className="h-12 w-full rounded-2xl border border-white/80 bg-white/76 px-4 text-sm outline-none backdrop-blur-xl focus:border-library-accent focus:ring-4 focus:ring-library-accent/10"
-                          >
-                            {CATEGORIES.map((category) => (
-                              <option key={category} value={category}>
-                                {category}
-                              </option>
+                          />
+                          <datalist id="category-options">
+                            {availableCategories.map((category) => (
+                              <option key={category} value={category} />
                             ))}
-                          </select>
+                          </datalist>
                         </label>
 
                         <label className="space-y-2">
@@ -742,6 +762,7 @@ function SidebarContent({
   setStatusFilter,
   platformFilter,
   setPlatformFilter,
+  availableCategories,
   categoryFilter,
   setCategoryFilter,
   storageMode,
@@ -756,6 +777,7 @@ function SidebarContent({
   setStatusFilter: (value: StatusFilter) => void;
   platformFilter: "All" | ContentPlatform;
   setPlatformFilter: (value: "All" | ContentPlatform) => void;
+  availableCategories: ContentCategory[];
   categoryFilter: "All" | ContentCategory;
   setCategoryFilter: (value: "All" | ContentCategory) => void;
   storageMode: StorageMode;
@@ -843,14 +865,14 @@ function SidebarContent({
             value={stats.totalSaved}
             onClick={() => setCategoryFilter("All")}
           />
-          {CATEGORIES.map((category) => (
+          {availableCategories.map((category) => (
             <div key={category}>
               <SidebarButton
                 active={categoryFilter === category}
                 expanded={expanded}
-                icon={CATEGORY_ICONS[category]}
+                icon={getCategoryIcon(category)}
                 label={category}
-                value={stats.categoryBreakdown[category]}
+                value={stats.categoryBreakdown[category] || 0}
                 onClick={() => setCategoryFilter(category)}
               />
             </div>
@@ -1009,7 +1031,7 @@ function ContentCard({
   onToggleRead: (id: string) => void;
   onDelete: (id: string) => void;
 }) {
-  const CategoryIcon = CATEGORY_ICONS[item.category];
+  const CategoryIcon = getCategoryIcon(item.category);
 
   return (
     <motion.article

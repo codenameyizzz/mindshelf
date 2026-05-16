@@ -9,7 +9,7 @@ export interface ContentMetadata {
   platform: ContentPlatform;
 }
 
-export type ContentCategory = "Learning" | "Entertainment" | "Work Reference" | "Other";
+export type ContentCategory = string;
 export type ContentPlatform = "YouTube" | "Instagram" | "Web";
 
 export interface SavedContent {
@@ -31,5 +31,5 @@ export interface SavedContent {
 export interface UserStats {
   totalSaved: number;
   totalCompleted: number;
-  categoryBreakdown: Record<ContentCategory, number>;
+  categoryBreakdown: Record<string, number>;
 }
